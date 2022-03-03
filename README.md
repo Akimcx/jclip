@@ -18,3 +18,5 @@ java Clipboard &
 |`d`|Delete Selected Item|
 |`i`|Add a new Item|
 
+## TODO
+[] On tiling window manager make it float by default

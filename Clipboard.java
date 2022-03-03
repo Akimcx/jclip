@@ -9,7 +9,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-class Main {
+class Clipboard {
 
     public static void main(String[] args) {
         var location = MouseInfo.getPointerInfo().getLocation();
