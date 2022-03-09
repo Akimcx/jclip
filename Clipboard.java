@@ -1,8 +1,15 @@
 import java.awt.Dimension;
 import java.awt.List;
 import java.awt.MouseInfo;
+import java.awt.Toolkit;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.FlavorEvent;
+import java.awt.datatransfer.FlavorListener;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.Arrays;
 
 import javax.swing.BoxLayout;
 import javax.swing.JFrame;
@@ -10,8 +17,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 class Clipboard {
+    
+    public static void main(String[] args) throws IOException, UnsupportedFlavorException {
 
-    public static void main(String[] args) {
         var location = MouseInfo.getPointerInfo().getLocation();
 
         var window = new JFrame("Clipboard");
@@ -24,17 +32,18 @@ class Clipboard {
 
         panel.setLayout(layout);
 
-        // TODO: get the content of the clipboard
-        // TODO: listen for change event of the clipboard
-        // TODO: add the new content of the clipboard to the start of the list
-
         var list = new List();
-        list.add("Hello");
-        list.add("Bonjour");
-        list.add("Holladmedkdendndnejndjnejndejnjndjndjnjenjendjnkjwnfjwnfj;wnfjnfjwfnrw");
-        list.add("Holladmedkdendndnejndjnejn");
-        list.add(";wnfjnfjwfnrw");
-        list.add("end");
+        var clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
+        var clipboardContent = clipboard.getData(DataFlavor.stringFlavor);
+        clipboard.addFlavorListener(flavorEvent -> {
+            try {
+                System.out.println(clipboard.getData(DataFlavor.stringFlavor));
+                list.add(clipboard.getData(DataFlavor.stringFlavor).toString());
+            } catch (UnsupportedFlavorException | IOException e) {
+                e.printStackTrace();
+            }
+        });
+        list.add(clipboardContent.toString());
 
         panel.add(list);
 
@@ -47,6 +56,7 @@ class Clipboard {
                         int index = list.getSelectedIndex() - 1;
                         list.select(Math.max(0, index));
                     }
+                    case 'p' -> window.setVisible(true);
                     case 'j' -> {
                         int index = list.getSelectedIndex() + 1;
                         list.select(Math.min(list.getItemCount() - 1, index));
@@ -68,6 +78,7 @@ class Clipboard {
         });
         window.setContentPane(panel);
         window.setVisible(true);
+        list.requestFocus();
     }
 
     private static void editItem(String item, JFrame component, List list) {

@@ -6,7 +6,6 @@ A sort of clipboard manager that appear below your cursor.
 ```console
 javac Clipboard.java
 java Clipboard &
-
 ```
 ## KeyBinding
 
@@ -19,4 +18,4 @@ java Clipboard &
 |`i`|Add a new Item|
 
 ## TODO
-[] On tiling window manager make it float by default
+- [ ] On tiling window manager make it float by default
