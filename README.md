@@ -1,6 +1,7 @@
 # JClip
 
 A sort of clipboard manager that appear below your cursor.
+Go to [coderanch](https://www.coderanch.com/t/377833/java/listen-clipboard) to get more info on the Thread approch
 
 ## Getting Started
 ```console
@@ -19,3 +20,5 @@ java Clipboard &
 
 ## TODO
 - [ ] On tiling window manager make it float by default
+- [ ] Make a linux app
+- [ ] add default keybinding
